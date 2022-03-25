@@ -8,10 +8,12 @@ class Node{
 
   public:
       Node(int*);
-      Node* leftShift();
-      Node* rightShift();
+      ~Node();
+      Node* copyPu(int*);
+      Node* generateChildren(char);
+      /*Node* rightShift();
       Node* upShift();
-      Node* downShift();
+      Node* downShift();*/
 };
 
 #endif // NODE_H_
