@@ -3,11 +3,11 @@
 
 class Node{
   private:
-      int puzzle[9];
+      int* puzzle;
       int zero;
 
   public:
-      Node(int[9]);
+      Node(int*);
       Node* leftShift();
       Node* rightShift();
       Node* upShift();
