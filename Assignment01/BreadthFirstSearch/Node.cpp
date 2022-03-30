@@ -1,7 +1,9 @@
 #include "Node.h"
+#include <iostream>
 
 Node::Node(int* pz, int z, int o) : zero(z), optimum(o){
   puzzle = copyPu(pz);
+//  cout<<endl<<pz[1]<<endl;
 }
 
 Node::~Node(){
@@ -15,7 +17,8 @@ int* Node::getPuzzle(){
 int* Node::copyPu(int* p){
   int* cp = new int[9];
   for(int i = 0; i < 9; i++){
-    *(cp+i) = *(p+i);
+    cp[i] = p[i];
+    //cout<<p[i];
   }
   return cp;
 }
@@ -57,6 +60,7 @@ Node* Node::generateChildren(char w){
       }
   }
   Node* nc = new Node(cp, nz, optimum+1);
+  //cout<<nc->store()<<endl;
   return nc;
 }
 

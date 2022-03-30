@@ -2,7 +2,7 @@
 
 using namespace std;
 Search::Search(Node* ss, Node* gs) : startState(ss), goalState(gs){
-
+ // cout<<startState->store()<<endl;
 }
 
 Search::~Search(){
@@ -16,6 +16,7 @@ int Search::bfs(){
   int iterations = 0;
 
   open.push(startState);
+  //cout<<open.front()->store()<<endl;
 
   while(!open.empty()){
     iterations++;
@@ -23,6 +24,7 @@ int Search::bfs(){
     open.pop();
 
     if(current->equal(goalState)){
+      //cout<<current->store()<<endl<<goalState->store()<<endl;
       goalState->setOptimum(current->getOptimum());
       return iterations;
     }
@@ -35,31 +37,33 @@ int Search::bfs(){
 
     if(lChild != NULL){
       auto it = closed.find(lChild->store());
-      if(it != closed.end()){
+      if(it == closed.end()){
         open.push(lChild);
       }
     }
 
    if(rChild != NULL){
       auto it = closed.find(rChild->store());
-      if(it != closed.end()){
+      //cout<<"correct"<<endl;
+      if(it == closed.end()){
         open.push(rChild);
+        //cout<<"problem"<<endl;
       }
     }
 
    if(uChild != NULL){
       auto it = closed.find(uChild->store());
-      if(it != closed.end()){
+      if(it == closed.end()){
         open.push(uChild);
       }
     }
 
    if(dChild != NULL){
       auto it = closed.find(dChild->store());
-      if(it != closed.end()){
+      if(it == closed.end()){
         open.push(dChild);
       }
     }
    }
-  return 0;
+  return iterations;
 }
