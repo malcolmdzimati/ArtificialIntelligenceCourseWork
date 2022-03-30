@@ -12,9 +12,10 @@ class Node{
       int optimum;
 
   public:
-      Node(int*);
+      Node(int*, int, int);
       ~Node();
-      Node* copyPu(int*);
+      int* copyPu(int*);
+      string store();
       int getOptimum();
       void setOptimum(int);
       Node* generateChildren(char);

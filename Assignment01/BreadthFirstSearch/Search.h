@@ -1,5 +1,5 @@
-#ifndef SEARCH_H_
-#define SEARCH_H_
+#ifndef SEARCH_H
+#define SEARCH_H
 
 #include "Node.h"
 #include <queue>
@@ -10,7 +10,7 @@ using namespace std;
 class Search{
   private:
     queue<Node*> open;
-    unordered_set<tring> closed;
+    unordered_set<string> closed;
     Node* startState;
     Node* goalState;
 

@@ -21,7 +21,7 @@ int* Node::copyPu(int* p){
 }
 
 Node* Node::generateChildren(char w){
-  Node* cp = Node(puzzle, zero, optimum);
+  int* cp = copyPu(puzzle);
   int nz = zero;
   if(w =='l'){
      if((zero == 2) || (zero == 5) || (zero == 8)) {
@@ -120,5 +120,5 @@ public Node* Node::upShift(){
     zero = zero - 3;
     *(cp+zero) = 0;
     return cp;
-  }*/
-}
+  }
+}*/
