@@ -12,7 +12,7 @@ Search::~Search(){
 
 
 
-int Search::bfs(){
+int Search::breadthFS(){
   int iterations = 0;
 
   open.push(startState);
@@ -65,5 +65,23 @@ int Search::bfs(){
       }
     }
    }
-  return iterations;
+  return -1;
+}
+
+int Search::bestFS(){
+  int iterations = 0;
+
+  return -1;
+}
+
+int Search::hillClimbing(){
+  int iterations = 0;
+
+  return -1;
+}
+
+int Search::aStar(){
+  int iterations = 0;
+
+  return -1;
 }

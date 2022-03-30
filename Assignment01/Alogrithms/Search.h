@@ -18,7 +18,10 @@ class Search{
   public:
     Search(Node*, Node*);
     ~Search();
-    int bfs();
+    int breadthFS();
+    int bestFS();
+    int hillClimbing();
+    int aStar();
 };
 
 #endif // SEARCH_H_
