@@ -1,6 +1,10 @@
 #ifndef NODE_H_
 #define NODE_H_
 
+#include <string>
+
+using namespace std;
+
 class Node{
   private:
       int* puzzle;

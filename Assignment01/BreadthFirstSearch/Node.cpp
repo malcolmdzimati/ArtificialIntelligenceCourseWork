@@ -12,7 +12,7 @@ int* Node::getPuzzle(){
   return puzzle;
 }
 
-public Node* Node::copyPu(int* p){
+int* Node::copyPu(int* p){
   int* cp = new int[9];
   for(int i = 0; i < 9; i++){
     *(cp+i) = *(p+i);
@@ -20,8 +20,8 @@ public Node* Node::copyPu(int* p){
   return cp;
 }
 
-public Node* Node::generateChildren(char w){
-  int* cp = copyPu(puzzle);
+Node* Node::generateChildren(char w){
+  Node* cp = Node(puzzle, zero, optimum);
   int nz = zero;
   if(w =='l'){
      if((zero == 2) || (zero == 5) || (zero == 8)) {
@@ -61,13 +61,14 @@ public Node* Node::generateChildren(char w){
 }
 
 bool Node::equal(Node* cm){
-  int* c = cm->getPuzzle();
+  /*int* c = cm->getPuzzle();
 
   for(int i; i < 9; i++){
     if(*(c+1) != *(puzzle+1))
       return false;
   }
-  return true;
+  return true;*/
+  return (store() == cm->store());
 }
 
 int Node::getOptimum(){
@@ -76,6 +77,14 @@ int Node::getOptimum(){
 
 void Node::setOptimum(int n){
   optimum = n;
+}
+
+string Node::store(){
+  string ret = "";
+  for(int i = 0; i < 9; i++){
+    ret = ret+to_string(puzzle[i]);
+  }
+  return ret;
 }
 
 /*public Node* Node::rightShift(){
