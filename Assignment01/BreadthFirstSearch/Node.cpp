@@ -3,7 +3,7 @@
 
 Node::Node(int* pz, int z, int o) : zero(z), optimum(o){
   puzzle = copyPu(pz);
-//  cout<<endl<<pz[1]<<endl;
+  //  cout<<endl<<pz[1]<<endl;
 }
 
 Node::~Node(){
@@ -65,13 +65,6 @@ Node* Node::generateChildren(char w){
 }
 
 bool Node::equal(Node* cm){
-  /*int* c = cm->getPuzzle();
-
-  for(int i; i < 9; i++){
-    if(*(c+1) != *(puzzle+1))
-      return false;
-  }
-  return true;*/
   return (store() == cm->store());
 }
 
@@ -90,6 +83,8 @@ string Node::store(){
   }
   return ret;
 }
+
+
 
 /*public Node* Node::rightShift(){
   int* cp = copyPu(puzzle);

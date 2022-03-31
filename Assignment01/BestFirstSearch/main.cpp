@@ -3,13 +3,6 @@
 
 using namespace std;
 
-/*int* eish(int i[9]){
-  int* ii = new int[9];
-  for(int x; x < 9; x++){
-    ii[x] = i[x];
-  }
-  return ii;
-}*/
 
 int main(int argc, char *argv[]) {
   int init[] = {8, 6, 7, 2, 5, 4, 3, 0, 1};

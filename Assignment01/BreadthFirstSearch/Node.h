@@ -21,6 +21,7 @@ class Node{
       Node* generateChildren(char);
       bool equal(Node*);
       int* getPuzzle();
+      //bool operator<(const Node* n1, const Node* n2);
       /*Node* rightShift();
       Node* upShift();
       Node* downShift();*/
