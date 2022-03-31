@@ -1,7 +1,7 @@
 #include "Node.h"
 #include <iostream>
 
-Node::Node(int* pz, int z, int o) : zero(z), optimum(o){
+Node::Node(int* pz, int z, int o, Node* gal) : zero(z), optimum(o), goal(gal){
   puzzle = copyPu(pz);
   //  cout<<endl<<pz[1]<<endl;
   heuristic = 0;
@@ -60,24 +60,30 @@ Node* Node::generateChildren(char w){
          *(cp+nz) = 0;
       }
   }
-  Node* nc = new Node(cp, nz, optimum+1);
-  //cout<<nc->store()<<endl;
+  Node* nc = new Node(cp, nz, optimum+1, goal);
+  nc->setHeuristic(goal);
+  //cout<<goal->store()<<endl;
   return nc;
 }
 
 void Node::setHeuristic(Node* cm){
-  int* c = cm->getPuzzle();
-  int heu = 0;
-
-  for(int i; i < 9; i++){
-    if(*(c+1) == *(puzzle+1))
-      heu++;
+  if(cm == NULL){
+    heuristic = 0;
+    return;
   }
 
-  heuristic=heu;
+  int* c = cm->getPuzzle();
+  int heu = 9;
+
+  for(int i = 0; i < 9; i++){
+    if(*(c+i) == *(puzzle+i))
+      heu--;
+  }
+
+  heuristic = heu;
 }
 
-int Node::getHeuristic(){
+int Node::getHeuristic() const{
   return heuristic;
 }
 

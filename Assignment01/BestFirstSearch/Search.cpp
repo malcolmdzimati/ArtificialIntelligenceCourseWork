@@ -1,6 +1,7 @@
 #include "Search.h"
 
 using namespace std;
+
 Search::Search(Node* ss, Node* gs) : startState(ss), goalState(gs){
  // cout<<startState->store()<<endl;
 }
@@ -20,8 +21,10 @@ int Search::breadthFS(){
 
   while(!open.empty()){
     iterations++;
-    Node* current = open.front();
+    Node* current = open.top();
     open.pop();
+
+    //cout<<"heuristic: "<<current->getHeuristic()<<endl;
 
     if(current->equal(goalState)){
       //cout<<current->store()<<endl<<goalState->store()<<endl;

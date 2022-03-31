@@ -10,10 +10,11 @@ class Node{
       int* puzzle;
       int zero;
       int optimum;
-      int heuristic;
+      Node* goal;
 
   public:
-      Node(int*, int, int);
+      int heuristic;
+      Node(int*, int, int, Node*);
       ~Node();
       int* copyPu(int*);
       string store();
@@ -23,7 +24,7 @@ class Node{
       bool equal(Node*);
       int* getPuzzle();
       void setHeuristic(Node*);
-      int getHeuristic();
+      int getHeuristic() const;
       //bool operator<(const Node* n1, const Node* n2);
       /*Node* rightShift();
       Node* upShift();

@@ -5,12 +5,14 @@
 #include <queue>
 #include <unordered_set>
 #include <iostream>
+#include <vector>
+#include "myComparison.h"
 
 using namespace std;
 
 class Search{
   private:
-    queue<Node*> open;
+    priority_queue<Node*, vector<Node*>, myComparison> open;
     unordered_set<string> closed;
     Node* startState;
     Node* goalState;
