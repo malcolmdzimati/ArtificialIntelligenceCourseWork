@@ -99,7 +99,7 @@ void Node::setOptimum(int n){
   optimum = n;
 }
 
-string Node::store(){
+string Node::store() const{
   string ret = "";
   for(int i = 0; i < 9; i++){
     ret = ret+to_string(puzzle[i]);

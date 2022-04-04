@@ -7,13 +7,30 @@
 #include <iostream>
 #include <vector>
 #include "myComparison.h"
+#include "NodeEqual.h"
+#include "StoreHash.h"
 
 using namespace std;
+
+/*struct NodeEqual{
+    public:
+     bool operator()(const Node* lhs, const Node* rhs) const
+    {
+        return lhs->store() == rhs->store();
+    }
+};
+
+struct storeHash{
+    public:
+    size_t operator()(const Node* node) const{
+        return hash<string>()(node->store());
+    }
+};*/
 
 class Search{
   private:
     priority_queue<Node*, vector<Node*>, myComparison> open;
-    unordered_set<string> closed;
+    unordered_set<Node*, StoreHash, NodeEqual> closed;
     Node* startState;
     Node* goalState;
 
