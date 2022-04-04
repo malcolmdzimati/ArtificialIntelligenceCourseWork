@@ -31,7 +31,8 @@ int Search::breadthFS(){
       goalState->setOptimum(current->getOptimum());
       return iterations;
     }
-    closed.insert(current->store());
+
+    closed.insert(current);
 
     Node* lChild = current->generateChildren('l');
     Node* rChild = current->generateChildren('r');
@@ -39,14 +40,14 @@ int Search::breadthFS(){
     Node* dChild = current->generateChildren('d');
 
     if(lChild != NULL){
-      auto it = closed.find(lChild->store());
+      auto it = closed.find(lChild);
       if(it == closed.end()){
         kids.push(lChild);
       }
     }
 
    if(rChild != NULL){
-      auto it = closed.find(rChild->store());
+      auto it = closed.find(rChild);
       //cout<<"correct"<<endl;
       if(it == closed.end()){
         kids.push(rChild);
@@ -55,14 +56,14 @@ int Search::breadthFS(){
     }
 
    if(uChild != NULL){
-      auto it = closed.find(uChild->store());
+      auto it = closed.find(uChild);
       if(it == closed.end()){
         kids.push(uChild);
       }
     }
 
    if(dChild != NULL){
-      auto it = closed.find(dChild->store());
+      auto it = closed.find(dChild);
       if(it == closed.end()){
         kids.push(dChild);
       }

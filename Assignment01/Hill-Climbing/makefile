@@ -1,9 +1,10 @@
 make:
 	g++ -c *.cpp
-	g++ *.o -o go
+	g++ *.o -o HC
 
-play:
-	./go
+run:
+	./HC
 
 clean:
 	rm *.o
+	rm HC

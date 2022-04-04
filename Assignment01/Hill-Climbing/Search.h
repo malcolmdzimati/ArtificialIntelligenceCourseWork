@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 #include "myComparison.h"
+#include "NodeEqual.h"
+#include "StoreHash.h"
 
 using namespace std;
 
@@ -14,7 +16,7 @@ class Search{
   private:
     queue<Node*> open;
     priority_queue<Node*, vector<Node*>, myComparison> kids;
-    unordered_set<string> closed;
+    unordered_set<Node*, StoreHash, NodeEqual> closed;
     Node* startState;
     Node* goalState;
 
