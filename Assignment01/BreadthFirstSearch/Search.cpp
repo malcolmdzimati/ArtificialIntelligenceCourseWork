@@ -10,8 +10,6 @@ Search::~Search(){
   delete goalState;
 }
 
-
-
 int Search::breadthFS(){
   int iterations = 0;
 
@@ -20,15 +18,14 @@ int Search::breadthFS(){
 
   while(!open.empty()){
     iterations++;
-    Node* current = open.front();
-    open.pop();
+    Node* current = open.pop();
 
     if(current->equal(goalState)){
       //cout<<current->store()<<endl<<goalState->store()<<endl;
       goalState->setOptimum(current->getOptimum());
       return iterations;
     }
-    closed.insert(current->store());
+    closed.push(current);
 
     Node* lChild = current->generateChildren('l');
     Node* rChild = current->generateChildren('r');
@@ -36,34 +33,31 @@ int Search::breadthFS(){
     Node* dChild = current->generateChildren('d');
 
     if(lChild != NULL){
-      auto it = closed.find(lChild->store());
-      if(it == closed.end()){
-        open.push(lChild);
+      kids.push(lChild);
+    }
+
+    if(rChild != NULL){
+      kids.push(rChild);
+    }
+
+    if(uChild != NULL){
+      kids.push(uChild);
+    }
+
+    if(dChild != NULL){
+      kids.push(dChild);
+    }
+
+    for(int i = 0; i < kids.size(); i++){
+      Node* child = kids.front();
+      kids.pop();
+      if(!closed.contains(child) && !open.contains(child)){
+        open.push(child);
+      }else if(open.contains(child)){
+        open.checkSwap(child);
       }
     }
 
-   if(rChild != NULL){
-      auto it = closed.find(rChild->store());
-      //cout<<"correct"<<endl;
-      if(it == closed.end()){
-        open.push(rChild);
-        //cout<<"problem"<<endl;
-      }
-    }
-
-   if(uChild != NULL){
-      auto it = closed.find(uChild->store());
-      if(it == closed.end()){
-        open.push(uChild);
-      }
-    }
-
-   if(dChild != NULL){
-      auto it = closed.find(dChild->store());
-      if(it == closed.end()){
-        open.push(dChild);
-      }
-    }
    }
   return -1;
 }

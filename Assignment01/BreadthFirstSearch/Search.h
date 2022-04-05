@@ -4,14 +4,16 @@
 #include "Node.h"
 #include <queue>
 #include <unordered_set>
+#include "CustomDataStructure.h"
 #include <iostream>
 
 using namespace std;
 
 class Search{
   private:
-    queue<Node*> open;
-    unordered_set<string> closed;
+    CustomDataStructure open;
+    CustomDataStructure closed;
+    queue<Node*> kids;
     Node* startState;
     Node* goalState;
 
