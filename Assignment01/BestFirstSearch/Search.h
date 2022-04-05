@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <iostream>
 #include <vector>
+#include "CustomDataStructure.h"
 #include "myComparison.h"
 #include "NodeEqual.h"
 #include "StoreHash.h"
@@ -29,8 +30,9 @@ struct storeHash{
 
 class Search{
   private:
-    priority_queue<Node*, vector<Node*>, myComparison> open;
-    unordered_set<Node*, StoreHash, NodeEqual> closed;
+    CustomDataStructure open;
+    CustomDataStructure closed;
+    queue<Node*> kids;
     Node* startState;
     Node* goalState;
 
