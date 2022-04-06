@@ -21,8 +21,7 @@ int Search::breadthFS(){
 
   while(!open.empty()){
     iterations++;
-    Node* current = open.front();
-    open.pop();
+    Node* current = open.pop();
 
     //cout<<"heuristic: "<<current->getHeuristic()<<endl;
 
@@ -31,67 +30,56 @@ int Search::breadthFS(){
       goalState->setOptimum(current->getOptimum());
       return iterations;
     }
-
-    closed.insert(current);
+    closed.push(current);
 
     Node* lChild = current->generateChildren('l');
     Node* rChild = current->generateChildren('r');
     Node* uChild = current->generateChildren('u');
     Node* dChild = current->generateChildren('d');
 
+    deque<Node*> children;
+
     if(lChild != NULL){
-      auto it = closed.find(lChild);
-      if(it == closed.end()){
-        kids.push(lChild);
-      }
+      kids.push(lChild);
     }
 
-   if(rChild != NULL){
-      auto it = closed.find(rChild);
-      //cout<<"correct"<<endl;
-      if(it == closed.end()){
-        kids.push(rChild);
-        //cout<<"problem"<<endl;
-      }
+    if(rChild != NULL){
+      kids.push(rChild);
     }
 
-   if(uChild != NULL){
-      auto it = closed.find(uChild);
-      if(it == closed.end()){
-        kids.push(uChild);
-      }
+    if(uChild != NULL){
+      kids.push(uChild);
     }
 
-   if(dChild != NULL){
-      auto it = closed.find(dChild);
-      if(it == closed.end()){
-        kids.push(dChild);
-      }
+    if(dChild != NULL){
+      kids.push(dChild);
     }
+
 
     while(!kids.empty()){
-      Node* top = kids.top();
-      open.push(top);
+      Node* child = kids.top();
       kids.pop();
+
+      if(!closed.contains(child) && !open.contains(child)){
+        children.push_front(child);
+      }else if(open.contains(child)){
+        if(open.checkSwap(child)){
+          open.remove(child);
+          //children.push_front(child);
+        }
+      }else if(closed.contains(child)){
+        closed.remove(child);
+        //open.push(child);
+        //children.push_front(child);
+      }
     }
-   }
+
+    open.pushKids(&children);
+
+    if(iterations == 400000){
+      return 0;
+    }
+  }
   return -1;
 }
 
-int Search::bestFS(){
-  int iterations = 0;
-
-  return -1;
-}
-
-int Search::hillClimbing(){
-  int iterations = 0;
-
-  return -1;
-}
-
-int Search::aStar(){
-  int iterations = 0;
-
-  return -1;
-}
