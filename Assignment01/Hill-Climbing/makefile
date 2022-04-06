@@ -1,13 +1,13 @@
 make:
 	g++ -c *.cpp
-	g++ *.o -o BFS
+	g++ *.o -o HC
 
 run:
-	./BFS
+	./HC
 
 clean:
 	rm *.o
-	rm BFS
+	rm HC
 
 debug:
 	g++ -c *.cpp
