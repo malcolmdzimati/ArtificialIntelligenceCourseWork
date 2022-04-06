@@ -1,22 +1,44 @@
 #include <iostream>
+#include <fstream>
 #include "Search.h"
 
 using namespace std;
 
 
 int main(int argc, char *argv[]) {
-  int init[] = {8, 6, 7, 2, 5, 4, 3, 0, 1};
-  int go[] = {1, 2, 3, 4, 5, 6, 7, 8, 0};
+  fstream newfile;
+   newfile.open("data.txt",ios::in); //open a file to perform read operation using file object
+   if (newfile.is_open()){
+     string tp;
+     while(getline(newfile, tp)){
+       int init[9];
+       int go[9];
+       int ini_z;
+       int go_z;
 
-  //int* initial = eish(init);
-  //int* goal = eish(go);
+       int i =0;
+       for(; i < 9; i++){
+         init[i] = tp[i] - '0';
+         if(init[i] == 0){
+           ini_z=i;
+         }
+       }
 
-  Node* goalState = new Node(go, 8, 0, NULL);
-  Node* startState = new Node(init, 7, 0, goalState);
+       i++;
+       for(int j = 0; j < 9; j++){
+         go[j] = tp[i+j] - '0';
+         if(go[j] == 0){
+           go_z=j;
+         }
+       }
 
-  //cout<<*(startState->getPuzzle()+2)<<initial[2]<<init[2]<<endl;
-  Search* bfs = new Search(startState, goalState);
+       Node* goalState = new Node(go, go_z, 0, NULL);
+       Node* startState = new Node(init, ini_z, 0, goalState);
 
-  cout<<"It took "<<bfs->breadthFS()<<" Number of iterations, with "<<goalState->getOptimum()<<" Optimum"<<endl;
+       Search* bfs = new Search(startState, goalState);
+
+       cout<<"It took "<<bfs->breadthFS()<<" Number of iterations, with "<<goalState->getOptimum()<<" Optimum"<<endl;
+     }
+  }
   return 0;
 }

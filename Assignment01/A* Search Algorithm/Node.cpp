@@ -91,7 +91,7 @@ bool Node::equal(Node* cm){
   return (store() == cm->store());
 }
 
-int Node::getOptimum(){
+int Node::getOptimum() const{
   return optimum;
 }
 

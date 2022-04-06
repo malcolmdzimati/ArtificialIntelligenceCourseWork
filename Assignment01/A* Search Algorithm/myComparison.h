@@ -7,7 +7,7 @@ class myComparison : binary_function<Node*, Node*, bool>{
   public:
      bool operator()(const Node* lhs, const Node* rhs) const
     {
-        return lhs->getHeuristic() > rhs->getHeuristic();
+        return (lhs->getHeuristic() + lhs->getOptimum()) > (rhs->getHeuristic() + rhs->getOptimum());
     }
 };
 

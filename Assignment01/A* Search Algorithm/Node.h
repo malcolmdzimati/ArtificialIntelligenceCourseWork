@@ -18,7 +18,7 @@ class Node{
       ~Node();
       int* copyPu(int*);
       string store() const;
-      int getOptimum();
+      int getOptimum() const;
       void setOptimum(int);
       Node* generateChildren(char);
       bool equal(Node*);

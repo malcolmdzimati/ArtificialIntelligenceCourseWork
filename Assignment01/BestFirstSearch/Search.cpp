@@ -61,7 +61,6 @@ int Search::breadthFS(){
       }else if(open.contains(child)){
         open.checkSwap(child);
       }else if(closed.contains(child)){
-        //open.push(child);
         closed.remove(child, &open);
       }
     }
