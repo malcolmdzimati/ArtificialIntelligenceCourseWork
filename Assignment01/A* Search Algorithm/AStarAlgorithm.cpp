@@ -1,19 +1,19 @@
-#include "Search.h"
+#include "AStarAlgorithm.h"
 
 using namespace std;
 
-Search::Search(Node* ss, Node* gs) : startState(ss), goalState(gs){
+AStarAlgorithm::AStarAlgorithm(Node* ss, Node* gs) : startState(ss), goalState(gs){
  // cout<<startState->store()<<endl;
 }
 
-Search::~Search(){
+AStarAlgorithm::~AStarAlgorithm(){
   delete startState;
   delete goalState;
 }
 
 
 
-int Search::breadthFS(){
+int AStarAlgorithm::aStar(){
   int iterations = 0;
 
   open.push(startState);
