@@ -1,19 +1,19 @@
-#include "HillClimbing.h"
+#include "BestFirstSearch.h"
 
 using namespace std;
 
-HillClimbing::HillClimbing(Node* ss, Node* gs) : startState(ss), goalState(gs){
+BestFirstSearch::BestFirstSearch(Node* ss, Node* gs) : startState(ss), goalState(gs){
  // cout<<startState->store()<<endl;
 }
 
-HillClimbing::~HillClimbing(){
+BestFirstSearch::~BestFirstSearch(){
   delete startState;
   delete goalState;
 }
 
 
 
-int HillClimbing::hillClimbing(){
+int BestFirstSearch::bestFS(){
   int iterations = 0;
 
   open.push(startState);
@@ -37,8 +37,6 @@ int HillClimbing::hillClimbing(){
     Node* uChild = current->generateChildren('u');
     Node* dChild = current->generateChildren('d');
 
-    deque<Node*> children;
-
     if(lChild != NULL){
       kids.push(lChild);
     }
@@ -55,31 +53,16 @@ int HillClimbing::hillClimbing(){
       kids.push(dChild);
     }
 
-
-    while(!kids.empty()){
-      Node* child = kids.top();
+    for(int i = 0; i < kids.size(); i++){
+      Node* child = kids.front();
       kids.pop();
-
       if(!closed.contains(child) && !open.contains(child)){
-        children.push_front(child);
+        open.push(child);
       }else if(open.contains(child)){
         open.checkSwap(child);
-        children.push_front(child);
-        /*{
-          open.remove(child);
-          children.push_front(child);
-        }*/
       }else if(closed.contains(child)){
-        //open.push(child);
-        closed.remove(child);
-        //children.push_front(child);
+        closed.remove(child, &open);
       }
-    }
-
-    open.pushKids(&children);
-
-    if(iterations == 5000000){
-      return 0;
     }
   }
   return -1;

@@ -1,19 +1,17 @@
-#include "HillClimbing.h"
+#include "BreadthFirstSearch.h"
 
 using namespace std;
 
-HillClimbing::HillClimbing(Node* ss, Node* gs) : startState(ss), goalState(gs){
+BreadthFirstSearch::BreadthFirstSearch(Node* ss, Node* gs) : startState(ss), goalState(gs){
  // cout<<startState->store()<<endl;
 }
 
-HillClimbing::~HillClimbing(){
+BreadthFirstSearch::~BreadthFirstSearch(){
   delete startState;
   delete goalState;
 }
 
-
-
-int HillClimbing::hillClimbing(){
+int BreadthFirstSearch::breadthFS(){
   int iterations = 0;
 
   open.push(startState);
@@ -22,8 +20,6 @@ int HillClimbing::hillClimbing(){
   while(!open.empty()){
     iterations++;
     Node* current = open.pop();
-
-    //cout<<"heuristic: "<<current->getHeuristic()<<endl;
 
     if(current->equal(goalState)){
       //cout<<current->store()<<endl<<goalState->store()<<endl;
@@ -36,8 +32,6 @@ int HillClimbing::hillClimbing(){
     Node* rChild = current->generateChildren('r');
     Node* uChild = current->generateChildren('u');
     Node* dChild = current->generateChildren('d');
-
-    deque<Node*> children;
 
     if(lChild != NULL){
       kids.push(lChild);
@@ -55,33 +49,16 @@ int HillClimbing::hillClimbing(){
       kids.push(dChild);
     }
 
-
-    while(!kids.empty()){
-      Node* child = kids.top();
+    for(int i = 0; i < kids.size(); i++){
+      Node* child = kids.front();
       kids.pop();
-
       if(!closed.contains(child) && !open.contains(child)){
-        children.push_front(child);
+        open.push(child);
       }else if(open.contains(child)){
         open.checkSwap(child);
-        children.push_front(child);
-        /*{
-          open.remove(child);
-          children.push_front(child);
-        }*/
-      }else if(closed.contains(child)){
-        //open.push(child);
-        closed.remove(child);
-        //children.push_front(child);
       }
     }
 
-    open.pushKids(&children);
-
-    if(iterations == 5000000){
-      return 0;
-    }
-  }
+   }
   return -1;
 }
-

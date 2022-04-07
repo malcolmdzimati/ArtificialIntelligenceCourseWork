@@ -3,7 +3,6 @@
 
 #include "Node.h"
 #include <queue>
-#include <deque>
 #include <unordered_set>
 #include <iostream>
 #include "myComparison.h"
@@ -14,7 +13,7 @@ using namespace std;
 
 class CustomDataStructure{
     private:
-        deque<Node*> que;
+        priority_queue<Node*, vector<Node*>, myComparison> que;
         unordered_set<Node*, StoreHash, NodeEqual> has;
 
     public:
@@ -24,8 +23,7 @@ class CustomDataStructure{
         bool contains(Node*);
         bool empty();
         void checkSwap(Node*);
-        void remove(Node*);
-        void pushKids(deque<Node*>*);
+        void remove(Node*, CustomDataStructure*);
 };
 
 #endif // CUSTOMDATASTRUCTURE_H

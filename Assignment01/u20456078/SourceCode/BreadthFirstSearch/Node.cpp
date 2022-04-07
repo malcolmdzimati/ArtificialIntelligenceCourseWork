@@ -1,10 +1,9 @@
 #include "Node.h"
 #include <iostream>
 
-Node::Node(int* pz, int z, int o, Node* gal) : zero(z), optimum(o), goal(gal){
+Node::Node(int* pz, int z, int o) : zero(z), optimum(o){
   puzzle = copyPu(pz);
   //  cout<<endl<<pz[1]<<endl;
-  heuristic = 0;
 }
 
 Node::~Node(){
@@ -60,37 +59,9 @@ Node* Node::generateChildren(char w){
          *(cp+nz) = 0;
       }
   }
-  Node* nc = new Node(cp, nz, optimum+1, goal);
-  nc->setHeuristic(goal);
-  //cout<<goal->store()<<endl;
+  Node* nc = new Node(cp, nz, optimum+1);
+  //cout<<nc->store()<<endl;
   return nc;
-}
-
-void Node::setHeuristic(Node* cm){
-  string data = store();
-  string goal = cm->store();
-  int sum=0;
-
-    for (int i=0; i<data.length(); i++) {
-        char dataChar=data[i];
-        if (dataChar!='0') {
-            int goalCoords=getCoords(goal, dataChar);
-            sum+=(abs((i%3)-(goalCoords%3))+abs(floor(i/3)-floor(goalCoords/3)));
-        }
-    }
-
-    heuristic = sum;
-}
-
-int Node::getCoords(string data, char x) {
-        for (int i=0; i<data.length(); i++) {
-            if (data[i]==x) return i;
-        }
-        return -1;
-}
-
-int Node::getHeuristic() const{
-  return heuristic;
 }
 
 bool Node::equal(Node* cm){

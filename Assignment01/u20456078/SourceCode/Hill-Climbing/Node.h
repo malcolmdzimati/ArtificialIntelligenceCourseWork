@@ -2,7 +2,6 @@
 #define NODE_H_
 
 #include <string>
-#include <math.h>
 
 using namespace std;
 
@@ -19,7 +18,7 @@ class Node{
       ~Node();
       int* copyPu(int*);
       string store() const;
-      int getOptimum() const;
+      int getOptimum();
       void setOptimum(int);
       Node* generateChildren(char);
       bool equal(Node*);
