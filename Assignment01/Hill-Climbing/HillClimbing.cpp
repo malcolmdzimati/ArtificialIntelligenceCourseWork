@@ -1,19 +1,19 @@
-#include "Search.h"
+#include "HillClimbing.h"
 
 using namespace std;
 
-Search::Search(Node* ss, Node* gs) : startState(ss), goalState(gs){
+HillClimbing::HillClimbing(Node* ss, Node* gs) : startState(ss), goalState(gs){
  // cout<<startState->store()<<endl;
 }
 
-Search::~Search(){
+HillClimbing::~HillClimbing(){
   delete startState;
   delete goalState;
 }
 
 
 
-int Search::breadthFS(){
+int HillClimbing::hillClimbing(){
   int iterations = 0;
 
   open.push(startState);
@@ -64,8 +64,8 @@ int Search::breadthFS(){
         children.push_front(child);
       }else if(open.contains(child)){
         if(open.checkSwap(child)){
-          open.remove(child);
-          //children.push_front(child);
+          //open.remove(child);
+          children.push_front(child);
         }
       }else if(closed.contains(child)){
         closed.remove(child);
@@ -76,7 +76,7 @@ int Search::breadthFS(){
 
     open.pushKids(&children);
 
-    if(iterations == 400000){
+    if(iterations == 5000000){
       return 0;
     }
   }

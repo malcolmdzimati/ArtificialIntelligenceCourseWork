@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "Search.h"
+#include "HillClimbing.h"
 
 using namespace std;
 
@@ -35,9 +35,9 @@ int main(int argc, char *argv[]) {
        Node* goalState = new Node(go, go_z, 0, NULL);
        Node* startState = new Node(init, ini_z, 0, goalState);
 
-       Search* bfs = new Search(startState, goalState);
+       HillClimbing* bfs = new HillClimbing(startState, goalState);
 
-       cout<<"It took "<<bfs->breadthFS()<<" Number of iterations, with "<<goalState->getOptimum()<<" Optimum"<<endl;
+       cout<<"It took "<<bfs->hillClimbing()<<" Number of iterations, with "<<goalState->getOptimum()<<" Optimum"<<endl;
      }
   }
   return 0;

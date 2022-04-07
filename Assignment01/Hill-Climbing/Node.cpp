@@ -1,5 +1,6 @@
 #include "Node.h"
 #include <iostream>
+#include <math.h>
 
 Node::Node(int* pz, int z, int o, Node* gal) : zero(z), optimum(o), goal(gal){
   puzzle = copyPu(pz);
@@ -67,20 +68,19 @@ Node* Node::generateChildren(char w){
 }
 
 void Node::setHeuristic(Node* cm){
-  if(cm == NULL){
-    heuristic = 0;
-    return;
-  }
+  string data = store();
+  string goal = cm->store();
+  int sum=0;
 
-  int* c = cm->getPuzzle();
-  int heu = 9;
+    for (int i=0; i<data.length(); i++) {
+        char dataChar=data[i];
+        if (dataChar!='0') {
+            int goalCoords=getCoords(goal, dataChar);
+            sum+=(abs((i%3)-(goalCoords%3))+abs(floor(i/3)-floor(goalCoords/3)));
+        }
+    }
 
-  for(int i = 0; i < 9; i++){
-    if(*(c+i) == *(puzzle+i))
-      heu--;
-  }
-
-  heuristic = heu;
+    heuristic = sum;
 }
 
 int Node::getHeuristic() const{
@@ -107,7 +107,12 @@ string Node::store() const{
   return ret;
 }
 
-
+int Node::getCoords(string data, char x) {
+        for (int i=0; i<data.length(); i++) {
+            if (data[i]==x) return i;
+        }
+        return -1;
+}
 
 /*public Node* Node::rightShift(){
   int* cp = copyPu(puzzle);

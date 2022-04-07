@@ -9,6 +9,7 @@ class myComparison : binary_function<Node*, Node*, bool>{
     {
         return lhs->getHeuristic() > rhs->getHeuristic();
     }
+
 };
 
 #endif // MYCOMPARISON_H_

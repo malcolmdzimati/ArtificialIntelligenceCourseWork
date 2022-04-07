@@ -1,5 +1,5 @@
-#ifndef SEARCH_H
-#define SEARCH_H
+#ifndef HILLCLIMBING_H
+#define HILLCLIMBING_H
 
 #include "Node.h"
 #include <queue>
@@ -28,7 +28,7 @@ struct storeHash{
     }
 };*/
 
-class Search{
+class HillClimbing{
   private:
     CustomDataStructure open;
     CustomDataStructure closed;
@@ -37,12 +37,9 @@ class Search{
     Node* goalState;
 
   public:
-    Search(Node*, Node*);
-    ~Search();
-    int breadthFS();
-    int bestFS();
+    HillClimbing(Node*, Node*);
+    ~HillClimbing();
     int hillClimbing();
-    int aStar();
 };
 
-#endif // SEARCH_H_
+#endif // HILLCLIMBING_H

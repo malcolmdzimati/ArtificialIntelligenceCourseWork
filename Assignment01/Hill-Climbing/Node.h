@@ -24,6 +24,7 @@ class Node{
       bool equal(Node*);
       int* getPuzzle();
       void setHeuristic(Node*);
+      int getCoords(string data, char);
       int getHeuristic() const;
       //bool operator<(const Node* n1, const Node* n2);
       /*Node* rightShift();
