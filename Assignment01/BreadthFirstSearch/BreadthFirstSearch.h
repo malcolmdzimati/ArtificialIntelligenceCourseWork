@@ -1,5 +1,5 @@
-#ifndef SEARCH_H
-#define SEARCH_H
+#ifndef BREADTHFIRSTSEARCH_H
+#define BREADTHFIRSTSEARCH_H
 
 #include "Node.h"
 #include <queue>
@@ -9,7 +9,7 @@
 
 using namespace std;
 
-class Search{
+class BreadthFirstSearch{
   private:
     CustomDataStructure open;
     CustomDataStructure closed;
@@ -18,12 +18,9 @@ class Search{
     Node* goalState;
 
   public:
-    Search(Node*, Node*);
-    ~Search();
+    BreadthFirstSearch(Node*, Node*);
+    ~BreadthFirstSearch();
     int breadthFS();
-    int bestFS();
-    int hillClimbing();
-    int aStar();
 };
 
 #endif // SEARCH_H_

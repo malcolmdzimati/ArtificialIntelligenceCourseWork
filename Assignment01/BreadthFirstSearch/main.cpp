@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "Search.h"
+#include "BreadthFirstSearch.h"
 
 using namespace std;
 
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
        Node* goalState = new Node(go, go_z, 0);
        Node* startState = new Node(init, ini_z, 0);
 
-       Search* bfs = new Search(startState, goalState);
+       BreadthFirstSearch* bfs = new BreadthFirstSearch(startState, goalState);
 
        cout<<"It took "<<bfs->breadthFS()<<" Number of iterations, with "<<goalState->getOptimum()<<" Optimum"<<endl;
      }

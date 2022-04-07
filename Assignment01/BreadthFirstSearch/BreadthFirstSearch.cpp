@@ -1,16 +1,17 @@
-#include "Search.h"
+#include "BreadthFirstSearch.h"
 
 using namespace std;
-Search::Search(Node* ss, Node* gs) : startState(ss), goalState(gs){
+
+BreadthFirstSearch::BreadthFirstSearch(Node* ss, Node* gs) : startState(ss), goalState(gs){
  // cout<<startState->store()<<endl;
 }
 
-Search::~Search(){
+BreadthFirstSearch::~BreadthFirstSearch(){
   delete startState;
   delete goalState;
 }
 
-int Search::breadthFS(){
+int BreadthFirstSearch::breadthFS(){
   int iterations = 0;
 
   open.push(startState);
