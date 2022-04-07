@@ -1,19 +1,19 @@
-#include "Search.h"
+#include "BestFirstSearch.h"
 
 using namespace std;
 
-Search::Search(Node* ss, Node* gs) : startState(ss), goalState(gs){
+BestFirstSearch::BestFirstSearch(Node* ss, Node* gs) : startState(ss), goalState(gs){
  // cout<<startState->store()<<endl;
 }
 
-Search::~Search(){
+BestFirstSearch::~BestFirstSearch(){
   delete startState;
   delete goalState;
 }
 
 
 
-int Search::breadthFS(){
+int BestFirstSearch::bestFS(){
   int iterations = 0;
 
   open.push(startState);
