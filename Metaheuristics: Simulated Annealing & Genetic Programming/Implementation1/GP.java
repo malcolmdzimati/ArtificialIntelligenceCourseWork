@@ -12,8 +12,10 @@ public class GP{
     public void initialGeneration(){
         for(int i = 0; i < popSize; i++){
             generation[i] = new Tree();
-            generation[i].generateTree();
-            generation[i].printTree();
+            while(generation[i].getNTNodes()>9 || generation[i].getNTNodes()<4){
+                generation[i] = new Tree();
+            }
+            generation[i].showTree();
         }
     }
 }
