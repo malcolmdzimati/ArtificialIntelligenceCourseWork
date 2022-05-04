@@ -1,6 +1,10 @@
+import java.util.Stack;
+
 public class Tree {
     Node root;
     int numTNodes;
+    String sum = "";
+    float fitness;
     String possibleOp = "-*/+";                //Different Possible values of Nodes
 
     public Tree(){
@@ -84,6 +88,27 @@ public class Tree {
         }
 
         printTree(node.getRightChild());
+
+    }
+
+    public void findPostfix(Node node){
+        if(node == null){
+            return;
+        }
+
+        findPostfix(node.getLeftChild());
+
+        findPostfix(node.getRightChild());
+
+        if(node.getType()!='t'){
+            sum+=node.getOp();
+        }else{
+            if(node.getInt()==10){
+                sum+='0';
+            } else{
+                sum+=node.getInt();
+            }
+        }
     }
 
     public int getNTNodes(){
@@ -91,8 +116,54 @@ public class Tree {
     }
 
     public void showTree(){
-        System.out.print("Number of terminal nodes: "+numTNodes+"\n");
+        calculateFitness();
+        System.out.print("Number of terminal nodes: "+numTNodes+"PostFix: "+sum+" Fitness: "+fitness+"\n");
         printTree(root);
         System.out.println(" ");
+    }
+
+    public void calculateFitness(){
+        findPostfix(root);
+
+        Stack<Float> stack = new Stack<>();
+
+        for(int i=0; i<sum.length(); i++){
+            char c=sum.charAt(i);
+
+            if(Character.isDigit(c)){
+                if(c=='0'){
+                    int j =10;
+                    float m = j;
+                    stack.push(m);
+                }else{
+                    int j =c-'0';
+                    float m = j;
+                    stack.push(m);
+                }
+            }else{
+                float num1 = stack.pop();
+                float num2 = stack.pop();
+
+                switch(c){
+                    case '*':
+                        stack.push(num2*num1);
+                        break;
+
+                    case '/':
+                        stack.push(num2/num1);
+                        break;
+
+                    case '+':
+                        stack.push(num2+num1);
+                        break;
+
+                    case '-':{
+                        stack.push(num2-num1);
+                    }
+                }
+            }
+        }
+        fitness = stack.pop();
+
     }
 }

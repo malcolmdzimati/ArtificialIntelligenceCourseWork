@@ -18,4 +18,8 @@ public class GP{
             generation[i].showTree();
         }
     }
+
+    public void calculateFitness(){
+
+    }
 }
