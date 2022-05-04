@@ -13,4 +13,8 @@ class TNode extends Node{
     public int getInt(){
         return value;
     }
+
+    public void setInt(int value){
+        this.value = value;
+    }
 }

@@ -164,6 +164,27 @@ public class Tree {
             }
         }
         fitness = stack.pop();
-
     }
+
+    public void changeValue(Node node, int[] arr, int i){
+        if(node == null){
+            return;
+        }
+
+        changeValue(node.getLeftChild(), arr, i);
+
+        if(node.getType()=='t'){
+            node.setInt(arr[i]);
+            i++;
+        }
+
+        changeValue(node.getRightChild(), arr, i);
+    }
+
+    public void changeValues(int[] arr){
+        int i = 0;
+        changeValue(root, arr, i);
+    }
+
+
 }

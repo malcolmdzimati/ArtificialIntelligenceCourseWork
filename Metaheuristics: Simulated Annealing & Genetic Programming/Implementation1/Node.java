@@ -39,4 +39,8 @@ class Node{
     public int getInt(){
         return -1;
     }
+
+    public void setInt(int i){
+
+    }
 }
