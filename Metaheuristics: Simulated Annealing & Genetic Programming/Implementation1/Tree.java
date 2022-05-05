@@ -123,6 +123,7 @@ public class Tree {
     }
 
     public void calculateFitness(){
+        sum="";
         findPostfix(root);
 
         Stack<Float> stack = new Stack<>();
@@ -186,5 +187,61 @@ public class Tree {
         changeValue(root, arr, i);
     }
 
+    public Node swapNode(){
+        int min = 1;
+        int max = (numTNodes)/2;
+        int rand_int = (int)Math.floor(Math.random()*(max-min+1)+min);
 
+        Node node = root;
+        char prev = 'n';
+
+        for(int i=0; i < rand_int; i++){
+            int ran = (int)Math.floor(Math.random()*(max-min+1)+min);
+            if(ran%2==0){
+                if(node.getRightChild() != null){
+                    node=node.getRightChild();
+                    prev = 'r';
+                }else{
+                    node=node.getParent();
+                    if(prev == 'r'){
+                        node=node.getLeftChild();
+                    }else{
+                        node=node.getRightChild();
+                    }
+                }
+            }else{
+                if(node.getLeftChild() != null){
+                    node=node.getLeftChild();
+                    prev = 'l';
+                }else{
+                    node=node.getParent();
+                    if(prev == 'r'){
+                        node=node.getLeftChild();
+                    }else{
+                        node=node.getRightChild();
+                    }
+                }
+            }
+        }
+
+        return node;
+    }
+
+    public void countNTNodes(){
+        numTNodes = 0;
+    }
+
+    public void countN(Node n){
+        if(n == null){
+            return;
+        }
+
+        countN(n.getLeftChild());
+
+        if(n.getType()=='t'){
+            numTNodes++;
+        }
+
+        countN(n.getRightChild());
+    }
 }
