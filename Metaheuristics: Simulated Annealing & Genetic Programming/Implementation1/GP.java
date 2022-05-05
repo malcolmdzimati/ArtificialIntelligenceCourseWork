@@ -17,6 +17,10 @@ public class GP{
             }
             //generation[i].showTree();
         }
+
+        generation[0].showTree();
+        generation[0].mutation();
+        generation[0].showTree();
     }
 
     public void crossOver(Tree t1, Tree t2){

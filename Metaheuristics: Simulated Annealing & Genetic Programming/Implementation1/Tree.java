@@ -249,14 +249,27 @@ public class Tree {
     public void mutation(){
         Node node = swapNode();
 
-        while(node.getType()=='t'){
-            node = swapNode();
+        if(node.getType()=='t'){
+            Node p = node.getParent();
+            if(p.getLeftChild()==node){
+                int min = 0;
+                int max = 3;
+                int rand_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+                node = new NNode(p, possibleOp.charAt(rand_int));
+                p.setLeftChild(node);
+            }else{
+                int min = 0;
+                int max = 3;
+                int rand_int = (int)Math.floor(Math.random()*(max-min+1)+min);
+                node = new NNode(p, possibleOp.charAt(rand_int));
+                p.setRightChild(node);
+            }
         }
 
-        if(numTNodes>6){
-            numTNodes-=2;
-        }
+        node.setLeftChild(null);
+        node.setRightChild(null);
 
+        countNTNodes();
         generateTree(node);
         countNTNodes();
 

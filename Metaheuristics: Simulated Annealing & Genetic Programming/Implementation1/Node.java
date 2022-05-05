@@ -18,12 +18,16 @@ class Node{
 
     public void setLeftChild(Node child){
         leftChild = child;
-        child.setParent(this);
+        if(child!=null){
+            child.setParent(this);
+        }
     }
 
     public void setRightChild(Node child){
         rightChild = child;
-        child.setParent(this);
+        if(child!=null){
+            child.setParent(this);
+        }
     }
 
      public Node getLeftChild(){
