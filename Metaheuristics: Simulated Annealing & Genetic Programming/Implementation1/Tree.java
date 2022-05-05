@@ -229,6 +229,7 @@ public class Tree {
 
     public void countNTNodes(){
         numTNodes = 0;
+        countN(root);
     }
 
     public void countN(Node n){
@@ -243,5 +244,24 @@ public class Tree {
         }
 
         countN(n.getRightChild());
+    }
+
+    public void mutation(){
+        Node node = swapNode();
+
+        while(node.getType()=='t'){
+            node = swapNode();
+        }
+
+        if(numTNodes>6){
+            numTNodes-=2;
+        }
+
+        generateTree(node);
+        countNTNodes();
+
+        if(numTNodes>9){
+            mutation();
+        }
     }
 }

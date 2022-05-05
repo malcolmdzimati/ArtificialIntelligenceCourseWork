@@ -17,13 +17,6 @@ public class GP{
             }
             //generation[i].showTree();
         }
-
-        generation[0].showTree();
-        generation[1].showTree();
-
-        crossOver(generation[0], generation[1]);
-        generation[0].showTree();
-        generation[1].showTree();
     }
 
     public void crossOver(Tree t1, Tree t2){
@@ -39,17 +32,17 @@ public class GP{
         }
 
 
-        System.out.print("Subtree 1: ");
+        /*System.out.print("Subtree 1: ");
         t1.printTree(n1);
-        System.out.println("");
+        System.out.println("");*/
 
         while(n2.getType()=='t'){
             n2=t2.swapNode();
         }
 
-        System.out.print("Subtree 2: ");
+        /*System.out.print("Subtree 2: ");
         t1.printTree(n2);
-        System.out.println("");
+        System.out.println("");*/
 
         Node n11 = n1.getParent();
         Node n22 = n2.getParent();
