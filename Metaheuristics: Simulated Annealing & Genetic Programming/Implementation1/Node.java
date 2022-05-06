@@ -2,7 +2,6 @@ class Node{
     Node leftChild;
     Node rightChild;
     Node parent;
-    int depth;
 
     Node(Node parent){
         this.parent = parent;

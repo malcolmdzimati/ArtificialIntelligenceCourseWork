@@ -1,13 +1,18 @@
 import java.util.Stack;
+import java.util.Objects;
 
-public class Tree {
+public class Tree implements Comparable<Tree>{
     Node root;
     int numTNodes;
     String sum = "";
-    float fitness;
+    float fitness=0;
+    double accuracy;
+    private int[][] data;
+    private int[] ans;
+    private int maxNum=20;
     String possibleOp = "-*/+";                //Different Possible values of Nodes
 
-    public Tree(){
+    public Tree(int[][] data, int[] ans){
         int min = 0;
         int max = 3;
         int rand_int = (int)Math.floor(Math.random()*(max-min+1)+min);
@@ -16,10 +21,54 @@ public class Tree {
 
         numTNodes = 0;
         generateTree(root);
+        this.data = data;
+        this.ans = ans;
+    }
+
+    public Tree(int[][] data, int[] ans, Tree tree, boolean mu){
+        this.data = data;
+        this.ans = ans;
+        root = new NNode(null, tree.returnRoot().getOp());
+        copyNode(tree.returnRoot().getLeftChild(), root, 'l');
+        copyNode(tree.returnRoot().getRightChild(), root, 'r');
+
+        if(mu){
+            mutation();
+        }
+    }
+
+    public void copyNode(Node og, Node parent, char pos){
+        if(og==null){
+            return;
+        }
+        Node copy= null;
+
+        if(og.getType()=='t'){
+            copy = new TNode(parent, og.getInt());
+        }else{
+            copy = new NNode(parent, og.getOp());
+        }
+
+        if(pos=='l'){
+            parent.setLeftChild(copy);
+        }else{
+            parent.setRightChild(copy);
+        }
+
+        copyNode(og.getLeftChild(), copy, 'l');
+        copyNode(og.getRightChild(), copy, 'r');
+    }
+
+    public Node returnRoot(){
+        return root;
+    }
+
+    public double getAccuracy(){
+        return accuracy/data.length;
     }
 
     public void generateTree(Node parent){
-        if(numTNodes>7){
+        if(numTNodes>maxNum-2){
             int min = 1;
             int max = 10;
             Node nodel;
@@ -45,7 +94,7 @@ public class Tree {
 
         int rand_int = (int)Math.floor(Math.random()*(max-min+1)+min);
 
-        if(rand_int<=10){
+        if(rand_int<=9){
             nodel = new TNode(parent, rand_int);
             parent.setLeftChild(nodel);
             numTNodes++;
@@ -56,7 +105,7 @@ public class Tree {
 
         rand_int = (int)Math.floor(Math.random()*(max-min+1)+min);
 
-        if(rand_int<=10){
+        if(rand_int<=9){
             noder = new TNode(parent, rand_int);
             parent.setRightChild(noder);
             numTNodes++;
@@ -172,14 +221,13 @@ public class Tree {
             return;
         }
 
-        changeValue(node.getLeftChild(), arr, i);
-
+        changeValue(node.getLeftChild(), arr, i++);
         if(node.getType()=='t'){
+            i=i%9;
             node.setInt(arr[i]);
-            i++;
         }
 
-        changeValue(node.getRightChild(), arr, i);
+        changeValue(node.getRightChild(), arr, i++);
     }
 
     public void changeValues(int[] arr){
@@ -273,8 +321,57 @@ public class Tree {
         generateTree(node);
         countNTNodes();
 
-        if(numTNodes>9){
+        if(numTNodes>maxNum){
             mutation();
+        }
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(this == o){
+            return true;
+        }
+
+        if(o == null || getClass() != o.getClass()){
+            return false;
+        }
+
+        Tree tree = (Tree) o;
+
+        return Double.compare(tree.getAccuracy(), accuracy) == 0;
+    }
+
+    @Override
+    public int hashCode(){
+        return Objects.hash(sum, accuracy);
+    }
+
+    @Override
+    public int compareTo(Tree tree){
+        if(getAccuracy() < tree.getAccuracy()){
+            return 1;
+        }else if(getAccuracy() > tree.getAccuracy()){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
+
+    public void evaluate(){
+        accuracy = 0;
+        for(int i=0; i<data.length; i++){
+            int decision=-1;
+            changeValue(root, data[i], 0);
+            calculateFitness();
+            if(fitness>=0.5){
+                decision = 1;
+            }else{
+                decision = 0;
+            }
+
+            if(decision==ans[i]){
+                accuracy++;
+            }
         }
     }
 }

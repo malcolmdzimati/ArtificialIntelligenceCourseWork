@@ -1,7 +1,7 @@
 class TNode extends Node{
     int value;
 
-    TNode(Node parent, int value){
+    public TNode(Node parent, int value){
         super(parent);
         this.value = value;
     }
