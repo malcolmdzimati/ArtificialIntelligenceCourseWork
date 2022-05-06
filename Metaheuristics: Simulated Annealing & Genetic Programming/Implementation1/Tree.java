@@ -166,9 +166,10 @@ public class Tree implements Comparable<Tree>{
 
     public void showTree(){
         calculateFitness();
-        System.out.print("Number of terminal nodes: "+numTNodes+"PostFix: "+sum+" Fitness: "+fitness+"\n");
+        System.out.println(" Number of Terminal nodes: "+numTNodes+"\n PostFix: "+sum);
+        System.out.print(" Infix: ");
         printTree(root);
-        System.out.println(" ");
+        System.out.println("\n");
     }
 
     public void calculateFitness(){

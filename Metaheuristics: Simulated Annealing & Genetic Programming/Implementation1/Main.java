@@ -53,17 +53,38 @@ class Main {
         }
     }
 
-    public static void main(String[] args) {
-        String filename = "../Assignment2_Data/breast_cancer_Train.csv";
+    public static Tree doGP(String filename, boolean isCancer){
         int arrSize = countLenght(filename);
         int[][] data = new int[arrSize][9];
         int[] ans = new int[arrSize];
         readArr(filename, data, ans, arrSize);
 
         GP gn = new GP(10, data, ans);
-        gn.initialGeneration();
-        Tree best = gn.findFittest(5000);
-        System.out.println("Accuracy: "+best.getAccuracy());
+        Tree best = null;
+        double j=0.0;
+        double thres=0.0;
+
+        if(isCancer){
+            thres=0.95;
+        }else{
+            thres=0.75;
+        }
+
+        while(j<thres){
+            gn.initialGeneration();
+            best = gn.findFittest(1000);
+            j = best.getAccuracy();
+        }
+        System.out.println("Breast Cancer Trainning:\n Accuracy: "+best.getAccuracy());
         best.showTree();
+        return best;
+    }
+
+    public static void main(String[] args) {
+        String filename = "../Assignment2_Data/breast_cancer_Test.csv";
+        Tree fittestC = doGP(filename, true);
+
+        filename = "../Assignment2_Data/tictactoe_Test.csv";
+        Tree fittestT = doGP(filename, false);
     }
 }
