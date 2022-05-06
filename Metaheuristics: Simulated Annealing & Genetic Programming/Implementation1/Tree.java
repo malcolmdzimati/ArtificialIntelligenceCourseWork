@@ -364,6 +364,7 @@ public class Tree implements Comparable<Tree>{
             int decision=-1;
             changeValue(root, data[i], 0);
             calculateFitness();
+
             if(fitness>=0.5){
                 decision = 1;
             }else{
