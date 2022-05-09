@@ -1,27 +1,31 @@
 import java.util.PriorityQueue;
 
-public class GP{
+public class GenticProgram{
     private Tree generation[];                                            //Current generation
     private PriorityQueue<Tree> sortedGeneration;                         //Maximum Length of Tree
     private int popSize;                                                  //Population Size of each generation
     private int[][] data;
     private int[] ans;
+    private int maxT;
+    private int numGen;
 
 
-    public GP(int popsize, int[][] data, int[] ans){
+    public GenticProgram(int popsize, int[][] data, int[] ans, int maxT, int numGen){
         generation = new Tree[popsize];
         popSize = popsize;
         sortedGeneration = new PriorityQueue<>();
         //maxDepth = maxdepth;
         this.data = data;
         this.ans = ans;
+        this.maxT = maxT;
+        this.numGen = numGen;
     }
 
     public void initialGeneration(){
         for(int i = 0; i < popSize; i++){
-            generation[i] = new Tree(data, ans);
+            generation[i] = new Tree(maxT);
             while(generation[i].getNTNodes()>20 || generation[i].getNTNodes()<4){
-                generation[i] = new Tree(data, ans);
+                generation[i] = new Tree(maxT);
             }
         }
     }
@@ -58,13 +62,13 @@ public class GP{
         }
     }
 
-    public Tree findFittest(int generations){
+    public Tree findFittest(){
         for(Tree person : generation){
-                person.evaluate();
+                person.evaluate(data, ans);
                 sortedGeneration.add(person);
         }
 
-        for(int i=0; i<generations; i++){
+        for(int i=0; i<numGen; i++){
 
             generation = new Tree[popSize];
 
@@ -78,11 +82,11 @@ public class GP{
                 Tree t2 = sortedGeneration.remove();
 
                 if(j<popSize){
-                    generation[j++] = new Tree(data, ans, t1, true);
+                    generation[j++] = new Tree(t1, true);
                 }
 
                 if(j<popSize){
-                    generation[j++] = new Tree(data, ans, t2, true);
+                    generation[j++] = new Tree(t2, true);
                 }
 
                 crossOver(t1, t2);
@@ -99,8 +103,11 @@ public class GP{
             sortedGeneration = new PriorityQueue<>();
 
             for(Tree person : generation){
-                person.evaluate();
+                person.evaluate(data, ans);
                 sortedGeneration.add(person);
+                if(person.getAccuracy()==1){
+                    return person;
+                }
             }
         }
         return sortedGeneration.remove();
