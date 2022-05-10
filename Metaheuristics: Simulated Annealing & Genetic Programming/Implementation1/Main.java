@@ -65,7 +65,6 @@ class Main {
         int[] ans = new int[arrSize];
         readArr(filename, data, ans, arrSize);
 
-        GenticProgram gp = new GenticProgram(10, data, ans, 20, 1000);
         Tree best = null;
         double j=0.0;
         double thres=0.0;
@@ -80,6 +79,7 @@ class Main {
         }
 
         while(j<thres){
+            GenticProgram gp = new GenticProgram(10, data, ans, 20, 1000);
             gp.initialGeneration();
             best = gp.findFittest();
             train = best.getAccuracy();
